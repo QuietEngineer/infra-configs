@@ -22,3 +22,38 @@
     components:
       - main
     signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
+
+- name: Use Kanidm
+  # https://kanidm.github.io/kanidm_ppa/
+  ansible.builtin.deb822_repository:
+    name: kanidm_ppa
+    uris: https://kanidm.github.io/kanidm_ppa/
+    # testing/forky is not currently available
+    # https://github.com/kanidm/kanidm_ppa_automation/blob/main/.github/workflows/create-apt-repo.yml
+    suites: trixie
+    components:
+      - stable
+    signed_by: https://kanidm.github.io/kanidm_ppa/kanidm_ppa.asc
+
+- name: Use Kubernetes
+  # https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management
+  ansible.builtin.deb822_repository:
+    name: kubernetes
+    uris: "https://pkgs.k8s.io/core:/stable:/{{ version }}/deb"
+    suites: /
+    signed_by: "https://pkgs.k8s.io/core:/stable:/{{ version }}/deb/Release.key"
+  vars:
+    version: "v1.36"
+
+- name: Use OpenTofu
+  # https://opentofu.org/docs/intro/install/deb/
+  ansible.builtin.deb822_repository:
+    name: opentofu
+    types:
+      - deb
+      - deb-src
+    uris: https://packages.opentofu.org/opentofu/tofu/any/
+    suites: any
+    components:
+      - main
+    signed_by: https://packages.opentofu.org/opentofu/tofu/gpgkey
