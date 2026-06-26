@@ -1,0 +1,31 @@
+---
+- name: Host setup
+  hosts: localhost
+  become: true
+  vars:
+    hostname: grodus
+    username: quietengineer
+
+  tasks:
+    - name: Configure the host and user
+      ansible.builtin.include_tasks:
+        file: tasks/host_and_user.yaml
+
+    - name: Set alternate apt repositories
+      ansible.builtin.include_tasks:
+        file: tasks/apt_repositories.yaml
+
+    - name: Install base packages
+      ansible.builtin.apt:
+        name:
+          - ansible
+          - git
+          - kanidm
+          - kubectl
+          - neovim
+          - podman
+          - podman-compose
+          - stow
+          - tofu
+          - zsh
+        update_cache: true

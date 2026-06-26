@@ -1,0 +1,24 @@
+---
+- name: Switch to Debian testing
+  ansible.builtin.deb822_repository:
+    name: debian
+    types:
+      - deb
+      - deb-src
+    uris: mirror+file:///etc/apt/mirrors/debian.list
+    suites: testing
+    components:
+      - main
+    signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
+
+- name: Switch to Debian testing-security
+  ansible.builtin.deb822_repository:
+    name: debian_security
+    types:
+      - deb
+      - deb-src
+    uris: mirror+file:///etc/apt/mirrors/debian-security.list
+    suites: testing-security
+    components:
+      - main
+    signed_by: /usr/share/keyrings/debian-archive-keyring.gpg
