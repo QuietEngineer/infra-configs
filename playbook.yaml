@@ -7,10 +7,6 @@
     username: quietengineer
 
   tasks:
-    - name: Configure the host and user
-      ansible.builtin.include_tasks:
-        file: tasks/host_and_user.yaml
-
     - name: Set alternate apt repositories
       ansible.builtin.include_tasks:
         file: tasks/apt_repositories.yaml
@@ -29,3 +25,7 @@
           - tofu
           - zsh
         update_cache: true
+
+    - name: Configure the host and user
+      ansible.builtin.include_tasks:
+        file: tasks/host_and_user.yaml
